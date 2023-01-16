@@ -1,4 +1,4 @@
 [
-  import 'schemas/address.json',
-  import 'schemas/customer.json',
+  import 'schemas/dashboard.json',
+  import 'schemas/gauge.json',
 ]

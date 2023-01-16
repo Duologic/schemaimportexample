@@ -1,0 +1,126 @@
+{
+   "$id": "http://grafana.com/schemas/grafana/x/gauge.json",
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "components": {
+      "schemas": {
+         "OptionsWithTextFormatting": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "description": "TODO docs",
+            "properties": {
+               "text": {
+                  "$ref": "#/components/schemas/VizTextDisplayOptions"
+               }
+            },
+            "type": "object"
+         },
+         "ReduceDataOptions": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "description": "TODO docs",
+            "properties": {
+               "calcs": {
+                  "description": "When !values, pick one value for the whole field",
+                  "items": {
+                     "type": "string"
+                  },
+                  "type": "array"
+               },
+               "fields": {
+                  "description": "Which fields to show.  By default this is only numeric fields",
+                  "type": "string"
+               },
+               "limit": {
+                  "description": "if showing all values limit",
+                  "type": "number"
+               },
+               "values": {
+                  "description": "If true show each row value",
+                  "type": "boolean"
+               }
+            },
+            "required": [
+               "calcs"
+            ],
+            "type": "object"
+         },
+         "SingleStatBaseOptions": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "allOf": [
+               {
+                  "$ref": "#/components/schemas/OptionsWithTextFormatting"
+               },
+               {
+                  "required": [
+                     "reduceOptions",
+                     "orientation"
+                  ]
+               }
+            ],
+            "description": "TODO docs",
+            "properties": {
+               "orientation": {
+                  "$ref": "#/components/schemas/VizOrientation"
+               },
+               "reduceOptions": {
+                  "$ref": "#/components/schemas/ReduceDataOptions"
+               }
+            },
+            "type": "object"
+         },
+         "VizOrientation": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "description": "TODO docs",
+            "enum": [
+               "auto",
+               "vertical",
+               "horizontal"
+            ],
+            "type": "string"
+         },
+         "VizTextDisplayOptions": {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "description": "TODO docs",
+            "properties": {
+               "titleSize": {
+                  "description": "Explicit title text size",
+                  "type": "number"
+               },
+               "valueSize": {
+                  "description": "Explicit value text size",
+                  "type": "number"
+               }
+            },
+            "type": "object"
+         }
+      }
+   },
+   "properties": {
+      "PanelOptions": {
+         "allOf": [
+            {
+               "$ref": "#/components/schemas/SingleStatBaseOptions"
+            },
+            {
+               "required": [
+                  "showThresholdLabels",
+                  "showThresholdMarkers"
+               ]
+            }
+         ],
+         "properties": {
+            "showThresholdLabels": {
+               "default": false,
+               "type": "boolean"
+            },
+            "showThresholdMarkers": {
+               "default": true,
+               "type": "boolean"
+            }
+         },
+         "type": "object"
+      }
+   },
+   "required": [
+      "PanelOptions"
+   ],
+   "type": "object"
+}
